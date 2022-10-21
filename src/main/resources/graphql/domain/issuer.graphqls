@@ -1,0 +1,33 @@
+type Issuer {
+    id: ID!
+    name: String
+}
+
+extend type Query {
+    """
+        Returns all issuers
+    """
+    issuers: [Issuer]
+
+    """
+        Returns issuer by ID
+    """
+    issuer(id: ID!): Issuer
+}
+
+extend type Mutation {
+    """
+        Creates new issuer
+    """
+    createIssuer(name: String!): Issuer! @auth(allowRoles: ["admin"])
+
+    """
+        Updates an existing issuer
+    """
+    updateIssuer(id: ID!, name: String): Issuer! @auth(allowRoles: ["admin"])
+
+    """
+        Deletes an existing issuer
+    """
+    deleteIssuer(id: ID!): Boolean @auth(allowRoles: ["admin"])
+}

@@ -1,0 +1,52 @@
+type ApiKey {
+    id: ID!
+    username: String! @caseconvert(to: "capital_all")
+    authKey: String! @auth(allowRoles: ["admin"])
+    status: ApiKeyStatus!
+    role: Role! @auth(allowRoles: ["admin"])
+    quota: Int
+    used: Int
+}
+
+input UpdateApiKeyRequest {
+    id: ID!
+    username: String
+    status: ApiKeyStatus
+    role: Role
+    quota: Int
+    regenerateAuthKey: Boolean
+}
+
+extend type Query {
+    """
+        Returns information about current user's api key
+    """
+    myKey: ApiKey
+
+    """
+        Returns all api keys
+    """
+    apiKeys: [ApiKey] @auth(allowRoles: ["admin"])
+
+    """
+        Returns api key by ID
+    """
+    apiKey(id: ID!): ApiKey @auth(allowRoles: ["admin"])
+}
+
+extend type Mutation {
+    """
+        Creates new api key
+    """
+    createApiKey(username: String!, role: Role!, quota: Int): ApiKey @auth(allowRoles: ["admin"])
+
+    """
+        Updates and existing api key
+    """
+    updateApiKey(updateRequest: UpdateApiKeyRequest): ApiKey @auth(allowRoles: ["admin"])
+
+    """
+        Resets the api key usage
+    """
+    resetApiKeyUsage(apiKeyId: ID!): Boolean @auth(allowRoles: ["admin"])
+}

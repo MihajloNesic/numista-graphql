@@ -1,0 +1,57 @@
+type Coin {
+    id: ID!
+    title: String!
+    issuer: Issuer!
+    referenceNumber: String!
+    year_min: Int
+    year_max: Int
+    demonetized: Boolean
+    faceValue: Float
+    composition: Composition
+    weight: Float
+    diameter: Float
+    shape: Shape
+    obverseLettering: String
+    reverseLettering: String
+    obverseImage: String
+    reverseImage: String
+    numistaId: Int @auth(denyRoles: ["user"])
+    mintage: [Mintage]
+}
+
+type CoinPage {
+    data: [Coin]!
+    hasData: Boolean
+    totalPages: Int!
+    totalElements: Int!
+    currentPage: Int!
+    currentSize: Int!
+    hasNext: Boolean!
+    nextPage: Int
+    hasPrevious: Boolean!
+    previousPage: Int
+    last: Boolean!
+    first: Boolean!
+}
+
+extend type Query {
+    """
+        Returns all coins in the catalogue
+    """
+    allCoins: [Coin] @auth(allowRoles: ["admin"])
+
+    """
+        Returns coins by issuer. Pagination is present
+    """
+    coins(issuerId: ID!, page: Int = 0, size: Int = 10): CoinPage
+
+    """
+        Returns coin by ID
+    """
+    coin(id: ID!): Coin
+
+    """
+        Returns all coins by issuer
+    """
+    coinsFromIssuer(issuerId: ID!): [Coin]
+}

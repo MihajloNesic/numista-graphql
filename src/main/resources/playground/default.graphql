@@ -1,0 +1,117 @@
+# Coin
+
+query CoinsByIssuer($issuerId: ID!, $page: Int, $size: Int) {
+  coins(issuerId: $issuerId, page: $page, size: $size) {
+    hasData
+    data {
+      id
+      title
+      year_min
+      year_max
+      composition
+      weight
+      diameter
+      referenceNumber
+      obverseImage
+      reverseImage
+    }
+    totalElements
+    totalPages
+    currentPage
+    currentSize
+    first
+    last
+    hasNext
+    nextPage
+    hasPrevious
+    previousPage
+  }
+}
+
+query CoinById($coinId: ID!) {
+  coin(id: $coinId) {
+    id
+    title
+    issuer {
+      id
+      name
+    }
+    referenceNumber
+    demonetized
+    faceValue
+    composition
+    weight
+    diameter
+    shape
+    obverseLettering
+    reverseLettering
+    obverseImage
+    reverseImage
+    mintage {
+      year
+      number
+      comment
+    }
+  }
+}
+
+# ApiKey
+
+query AllApiKeys {
+  apiKeys {
+    id
+    username
+    authKey
+    status
+    role
+    quota
+    used
+  }
+}
+
+mutation CreateApiKey {
+  createApiKey(username: "test2", role: USER, quota: 750) {
+    id
+    authKey
+    role
+    status
+    quota
+    used
+  }
+}
+
+mutation UpdateApiKey($updateKey: UpdateApiKeyRequest) {
+  updateApiKey(updateRequest: $updateKey) {
+    id
+    authKey
+    role
+    status
+    quota
+    used
+  }
+}
+
+# Issuer
+
+query AllIssuers {
+  issuers {
+    id
+    name
+  }
+}
+
+mutation CreateIssuer {
+  createIssuer(name: "Ottoman Empire") {
+    id
+  }
+}
+
+mutation UpdateIssuer {
+  updateIssuer(id: 15, name: "Turkey") {
+    name
+  }
+}
+
+mutation DeleteIssuer {
+  deleteIssuer(id: 15)
+}

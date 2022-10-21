@@ -1,0 +1,8 @@
+graphql.servlet.mapping: /graphql
+
+spring:
+    h2.console:
+        enabled: false
+
+graphiql:
+    enabled: false

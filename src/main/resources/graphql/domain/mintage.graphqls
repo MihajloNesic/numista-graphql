@@ -1,0 +1,14 @@
+type Mintage {
+    id: ID!
+    coin: Coin!
+    year: Int
+    number: Long
+    comment: String
+}
+
+extend type Query {
+    """
+        Returns mintage by coin ID
+    """
+    mintageByCoin(coinId: ID!): [Mintage]
+}

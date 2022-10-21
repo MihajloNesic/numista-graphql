@@ -1,0 +1,22 @@
+package io.gitlab.mihajlonesic.numistagraphql.entity.domain;
+
+public enum Shape {
+    DODECAGONAL_12_SIDED,
+    HEXAGONAL_6_SIDED,
+    IRREGULAR,
+    IRREGULAR_12_X_10_MM,
+    OCTAGONAL_8_SIDED,
+    OTHER_BENT_WIRE,
+    OVAL,
+    RECTANGULAR,
+    RHOMBUS,
+    ROUND,
+    ROUND_IRREGULAR,
+    ROUND_WITH_A_ROUND_HOLE,
+    ROUND_WITH_A_SQUARE_HOLE,
+    SCALLOPED_WITH_12_NOTCHES,
+    SCALLOPED_WITH_8_NOTCHES,
+    SCYPHATE,
+    SQUARE,
+    SQUARE_WITH_ROUNDED_CORNERS
+}
