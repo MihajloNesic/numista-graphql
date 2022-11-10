@@ -1,4 +1,5 @@
 package io.gitlab.mihajlonesic.numistagraphql.security;
+
 import io.gitlab.mihajlonesic.numistagraphql.entity.ApiKey;
 import io.gitlab.mihajlonesic.numistagraphql.entity.domain.ApiKeyStatus;
 import io.gitlab.mihajlonesic.numistagraphql.exception.ApiKeyException;
@@ -39,7 +40,7 @@ public class ApiKeyFilter extends OncePerRequestFilter {
 
     @Override
     protected void doFilterInternal(HttpServletRequest httpServletRequest, @NotNull HttpServletResponse httpServletResponse, @NotNull FilterChain filterChain) throws ServletException, IOException {
-        String keyHeader = httpServletRequest.getHeader("x-api-key");
+        String keyHeader = httpServletRequest.getHeader(SecurityConfig.KEY_HEADER);
 
         // check auth key from header
         if (keyHeader == null) {

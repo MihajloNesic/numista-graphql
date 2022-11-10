@@ -18,6 +18,7 @@ create table if not exists coin (
     demonetized bit default false,
     face_value float default null,
     composition varchar(255) default null,
+    composition_comment varchar(127) default null,
     weight float default null,
     diameter float default null,
     shape varchar(255) default null,

@@ -1,12 +1,14 @@
 package io.gitlab.mihajlonesic.numistagraphql.service;
 
 import io.gitlab.mihajlonesic.numistagraphql.entity.Coin;
+import io.gitlab.mihajlonesic.numistagraphql.entity.domain.Composition;
 import io.gitlab.mihajlonesic.numistagraphql.exception.EntityNotFoundException;
-import io.gitlab.mihajlonesic.numistagraphql.model.CoinPage;
+import io.gitlab.mihajlonesic.numistagraphql.model.CoinsPage;
 import io.gitlab.mihajlonesic.numistagraphql.repository.CoinRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -33,13 +35,22 @@ public class CoinService {
         return coinOptional.get();
     }
 
-    public CoinPage getCoins(Long issuerId, int page, int size) {
-        Page<Coin> coins = coinRepository.findByIssuerId(issuerId, PageRequest.of(page, size, Sort.by(Sort.Direction.ASC, "yearMin").and(Sort.by(Sort.Direction.ASC, "yearMax")).and(Sort.by(Sort.Direction.ASC, "faceValue"))));
-        return new CoinPage(coins, page, size);
+    public CoinsPage getCoins(Long issuerId, Composition.Tag compositionTag, int page, int size) {
+        Page<Coin> coins;
+        PageRequest pageRequest = PageRequest.of(page, size, Sort.by(Direction.ASC, "yearMin", "yearMax", "faceValue"));
+        if (compositionTag == null) {
+            coins = coinRepository.findByIssuerId(issuerId, pageRequest);
+        }
+        else {
+            coins = coinRepository.findByIssuerIdAndCompositionIn(issuerId, compositionTag.getItems(), pageRequest);
+        }
+        return CoinsPage.of(coins, page, size);
     }
 
-    public List<Coin> getCoinsFromIssuer(Long issuerId) {
-        return coinRepository.findAllCoinsByIssuer(issuerId);
+    public CoinsPage searchCoins(String title, int page, int size) {
+        Page<Coin> coins = coinRepository.findByTitleContainingIgnoreCase(title,
+            PageRequest.of(page, size, Sort.by(Sort.Direction.ASC, "issuer", "yearMin", "yearMax", "faceValue")));
+        return CoinsPage.of(coins, page, size);
     }
 }
 

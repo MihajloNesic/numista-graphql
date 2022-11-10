@@ -28,7 +28,7 @@ public class LongScalarType {
                     public @NotNull Long parseValue(@NotNull Object input) throws CoercingParseValueException {
                         try {
                             if (input instanceof String) {
-                                return new Long((String) input);
+                                return Long.valueOf((String) input);
                             } else {
                                 throw new CoercingParseValueException("Expected a String");
                             }
@@ -41,7 +41,7 @@ public class LongScalarType {
                     public @NotNull Long parseLiteral(@NotNull Object input) throws CoercingParseLiteralException {
                         if (input instanceof StringValue) {
                             try {
-                                return new Long(((StringValue) input).getValue());
+                                return Long.valueOf(((StringValue) input).getValue());
                             } catch (Exception e) {
                                 throw new CoercingParseLiteralException(e);
                             }

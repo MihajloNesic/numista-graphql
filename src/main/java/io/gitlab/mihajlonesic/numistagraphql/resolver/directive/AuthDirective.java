@@ -1,6 +1,5 @@
 package io.gitlab.mihajlonesic.numistagraphql.resolver.directive;
 
-import graphql.GraphQLContext;
 import graphql.kickstart.servlet.context.DefaultGraphQLServletContext;
 import graphql.language.ArrayValue;
 import graphql.language.StringValue;
@@ -72,7 +71,7 @@ public class AuthDirective implements SchemaDirectiveWiring {
         return array != null ?
                 array.getValues()
                         .stream()
-                        .map(v -> ((StringValue) v).getValue())
+                        .map(v -> ((StringValue) v).getValue().toLowerCase())
                         .collect(Collectors.toList()) : List.of();
     }
 }

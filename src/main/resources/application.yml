@@ -30,6 +30,7 @@ graphiql:
             variables: /playground/variables.json
         variables:
             headerEditorEnabled: true
+            # editorTheme: "darcula"
     headers:
         x-api-key: 5eb16ef5-5059-462c-9934-7cd30ffd2328
         x-api-key-user: c7a93cd5-3098-4036-8da9-7149e5d3b164

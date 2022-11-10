@@ -2,7 +2,8 @@ package io.gitlab.mihajlonesic.numistagraphql.resolver.query;
 
 import graphql.kickstart.tools.GraphQLQueryResolver;
 import io.gitlab.mihajlonesic.numistagraphql.entity.Coin;
-import io.gitlab.mihajlonesic.numistagraphql.model.CoinPage;
+import io.gitlab.mihajlonesic.numistagraphql.entity.domain.Composition;
+import io.gitlab.mihajlonesic.numistagraphql.model.CoinsPage;
 import io.gitlab.mihajlonesic.numistagraphql.service.CoinService;
 import org.springframework.stereotype.Component;
 
@@ -21,15 +22,15 @@ public class CoinQueryResolver implements GraphQLQueryResolver {
         return coinService.getAllCoins();
     }
 
-    public CoinPage coins(Long issuerId, int page, int size) {
-        return coinService.getCoins(issuerId, page, size);
+    public CoinsPage coins(Long issuerId, Composition.Tag compositionTag, int page, int size) {
+        return coinService.getCoins(issuerId, compositionTag, page, size);
     }
 
     public Coin coin(Long id) {
         return coinService.getCoinById(id);
     }
 
-    public List<Coin> coinsFromIssuer(Long issuerId) {
-        return coinService.getCoinsFromIssuer(issuerId);
+    public CoinsPage searchCoins(String title, int page, int size) {
+        return coinService.searchCoins(title, page, size);
     }
 }

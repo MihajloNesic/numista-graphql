@@ -1,7 +1,6 @@
 package io.gitlab.mihajlonesic.numistagraphql.rest.model;
 
 import io.gitlab.mihajlonesic.numistagraphql.entity.Coin;
-import io.gitlab.mihajlonesic.numistagraphql.entity.domain.Composition;
 
 public class CoinListResponse {
 
@@ -9,7 +8,7 @@ public class CoinListResponse {
     private String title;
     private Integer yearMin;
     private Integer yearMax;
-    private Composition composition;
+    private String composition;
     private Double weight;
     private Double diameter;
     private String referenceNumber;
@@ -64,11 +63,11 @@ public class CoinListResponse {
         this.yearMax = yearMax;
     }
 
-    public Composition getComposition() {
+    public String getComposition() {
         return composition;
     }
 
-    public void setComposition(Composition composition) {
+    public void setComposition(String composition) {
         this.composition = composition;
     }
 

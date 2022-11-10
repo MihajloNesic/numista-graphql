@@ -1,2 +1,2 @@
-directive @caseconvert(to: String!) on FIELD_DEFINITION
+directive @caseConvert(to: String!) on FIELD_DEFINITION
 directive @auth(allowRoles: [String], denyRoles: [String]) on FIELD_DEFINITION | MUTATION | QUERY

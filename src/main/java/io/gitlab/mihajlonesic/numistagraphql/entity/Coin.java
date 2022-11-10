@@ -2,12 +2,21 @@ package io.gitlab.mihajlonesic.numistagraphql.entity;
 
 import io.gitlab.mihajlonesic.numistagraphql.entity.domain.Composition;
 import io.gitlab.mihajlonesic.numistagraphql.entity.domain.Shape;
-
-import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 @Entity
 public class Coin {
@@ -29,6 +38,7 @@ public class Coin {
 
     @Enumerated(EnumType.STRING)
     private Composition composition;
+    private String compositionComment;
 
     private Double weight;
     private Double diameter;
@@ -194,12 +204,30 @@ public class Coin {
         this.faceValue = faceValue;
     }
 
-    public Composition getComposition() {
+    public String getComposition() {
+        if (composition == null) {
+            return null;
+        }
+        if (compositionComment != null) {
+            return composition.getDisplayName() + " (" + compositionComment + ")";
+        }
+        return composition.getDisplayName();
+    }
+
+    public Composition getCompositionEnum() {
         return composition;
     }
 
     public void setComposition(Composition composition) {
         this.composition = composition;
+    }
+
+    public String getCompositionComment() {
+        return compositionComment;
+    }
+
+    public void setCompositionComment(String compositionComment) {
+        this.compositionComment = compositionComment;
     }
 
     public Double getWeight() {
@@ -218,7 +246,11 @@ public class Coin {
         this.diameter = diameter;
     }
 
-    public Shape getShape() {
+    public String getShape() {
+        return shape.getDisplayName();
+    }
+
+    public Shape getShapeEnum() {
         return shape;
     }
 
@@ -268,7 +300,7 @@ public class Coin {
 
     public List<Mintage> getMintage() {
         return mintage.stream()
-                .sorted(Comparator.comparing(Mintage::getYear, Comparator.nullsLast(Comparator.reverseOrder())))
+                .sorted(Comparator.comparing(Mintage::getYear, Comparator.nullsFirst(Comparator.reverseOrder())).reversed())
                 .collect(Collectors.toList());
     }
 }

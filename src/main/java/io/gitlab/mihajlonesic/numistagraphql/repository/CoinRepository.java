@@ -1,6 +1,7 @@
 package io.gitlab.mihajlonesic.numistagraphql.repository;
 
 import io.gitlab.mihajlonesic.numistagraphql.entity.Coin;
+import io.gitlab.mihajlonesic.numistagraphql.entity.domain.Composition;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -24,11 +25,9 @@ public interface CoinRepository extends JpaRepository<Coin, Long> {
            "order by c.title")
     List<Coin> findAllCoins();
 
-    @Query("select c " +
-           "from Coin c " +
-           "where c.issuer.id = :issuerId " +
-           "order by c.title")
-    List<Coin> findAllCoinsByIssuer(@Param("issuerId") Long issuerId);
-
     Page<Coin> findByIssuerId(Long issuerId, Pageable pageable);
+
+    Page<Coin> findByIssuerIdAndCompositionIn(Long issuerId, List<Composition> compositionList, Pageable pageable);
+
+    Page<Coin> findByTitleContainingIgnoreCase(String title, Pageable pageable);
 }

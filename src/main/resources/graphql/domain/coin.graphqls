@@ -7,10 +7,10 @@ type Coin {
     year_max: Int
     demonetized: Boolean
     faceValue: Float
-    composition: Composition
+    composition: String
     weight: Float
     diameter: Float
-    shape: Shape
+    shape: String
     obverseLettering: String
     reverseLettering: String
     obverseImage: String
@@ -19,7 +19,7 @@ type Coin {
     mintage: [Mintage]
 }
 
-type CoinPage {
+type CoinsPage {
     data: [Coin]!
     hasData: Boolean
     totalPages: Int!
@@ -41,9 +41,9 @@ extend type Query {
     allCoins: [Coin] @auth(allowRoles: ["admin"])
 
     """
-        Returns coins by issuer. Pagination is present
+        Returns coins by issuer. Composition tag is optional. Pagination is present
     """
-    coins(issuerId: ID!, page: Int = 0, size: Int = 10): CoinPage
+    coins(issuerId: ID!, compositionTag: CompositionTag, page: Int = 0, size: Int = 10): CoinsPage
 
     """
         Returns coin by ID
@@ -51,7 +51,7 @@ extend type Query {
     coin(id: ID!): Coin
 
     """
-        Returns all coins by issuer
+        Searches a coin by title
     """
-    coinsFromIssuer(issuerId: ID!): [Coin]
+    searchCoins(title: String!, page: Int = 0, size: Int = 10): CoinsPage
 }

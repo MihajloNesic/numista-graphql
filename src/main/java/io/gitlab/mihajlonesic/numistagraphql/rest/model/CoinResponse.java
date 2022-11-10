@@ -15,10 +15,10 @@ public class CoinResponse {
     private String referenceNumber;
     private Boolean demonetized;
     private Float faceValue;
-    private Composition composition;
+    private String composition;
     private Double weight;
     private Double diameter;
-    private Shape shape;
+    private String shape;
     private String obverseLettering;
     private String reverseLettering;
     private String obverseImage;
@@ -95,11 +95,11 @@ public class CoinResponse {
         this.faceValue = faceValue;
     }
 
-    public Composition getComposition() {
+    public String getComposition() {
         return composition;
     }
 
-    public void setComposition(Composition composition) {
+    public void setComposition(String composition) {
         this.composition = composition;
     }
 
@@ -119,11 +119,11 @@ public class CoinResponse {
         this.diameter = diameter;
     }
 
-    public Shape getShape() {
+    public String getShape() {
         return shape;
     }
 
-    public void setShape(Shape shape) {
+    public void setShape(String shape) {
         this.shape = shape;
     }
 

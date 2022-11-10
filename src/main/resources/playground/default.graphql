@@ -55,6 +55,65 @@ query CoinById($coinId: ID!) {
   }
 }
 
+query GoldCoinsByIssuer($issuerId: ID!, $page: Int, $size: Int) {
+  coins(issuerId: $issuerId, compositionTag: GOLD, page: $page, size: $size) {
+    hasData
+    data {
+      id
+      title
+      year_min
+      year_max
+      composition
+      weight
+      diameter
+      referenceNumber
+      obverseImage
+      reverseImage
+    }
+    totalElements
+    totalPages
+    currentPage
+    currentSize
+    first
+    last
+    hasNext
+    nextPage
+    hasPrevious
+    previousPage
+  }
+}
+
+query SearchCoin($searchTitle: String!, $page: Int, $size: Int) {
+  searchCoins(title: $searchTitle, page: $page, size: $size) {
+    hasData
+    data {
+      id
+      title
+      issuer {
+        name
+      }
+      year_min
+      year_max
+      composition
+      weight
+      diameter
+      referenceNumber
+      obverseImage
+      reverseImage
+    }
+    totalElements
+    totalPages
+    currentPage
+    currentSize
+    first
+    last
+    hasNext
+    nextPage
+    hasPrevious
+    previousPage
+  }
+}
+
 # ApiKey
 
 query AllApiKeys {
@@ -107,11 +166,11 @@ mutation CreateIssuer {
 }
 
 mutation UpdateIssuer {
-  updateIssuer(id: 15, name: "Turkey") {
+  updateIssuer(id: 25, name: "Turkey") {
     name
   }
 }
 
 mutation DeleteIssuer {
-  deleteIssuer(id: 15)
+  deleteIssuer(id: 25)
 }

@@ -1,8 +1,8 @@
 type ApiKey {
-    id: ID!
-    username: String! @caseconvert(to: "capital_all")
+    id: ID! @auth(allowRoles: ["admin"])
+    username: String! @caseConvert(to: "capital_all")
     authKey: String! @auth(allowRoles: ["admin"])
-    status: ApiKeyStatus!
+    status: ApiKeyStatus! @auth(allowRoles: ["admin"])
     role: Role! @auth(allowRoles: ["admin"])
     quota: Int
     used: Int

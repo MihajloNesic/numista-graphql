@@ -14,7 +14,7 @@ public class DirectiveConfig {
 
     @Bean
     public SchemaDirective caseConvertDirective() {
-        return new SchemaDirective("caseconvert", new CaseConvertDirective());
+        return new SchemaDirective("caseConvert", new CaseConvertDirective());
     }
 
     @Bean

@@ -71,6 +71,6 @@ Alternatively, the API key can be blocked (or inactivated) by an ADMIN role and 
 Depending on a role (USER or ADMIN), a user has different permissions to ether fetch an attribute from an object or to execute a query or mutation. This is achieved using a custom GraphQL directive called `@auth`.
 
 For example:
-- a role user is forbidden to fetch an attribute 'numistaId' from a Coin object -> `numistaId: Int @auth(denyRoles: ["user"])`
+- a role 'User' and 'Guest' is forbidden to fetch an attribute 'numistaId' from a Coin object -> `numistaId: Int @auth(denyRoles: ["user", "guest"])`
 - only admin role can execute api key queries and mutations -> `apiKeys: [ApiKey] @auth(allowRoles: ["admin"])`
 
